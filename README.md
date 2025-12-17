@@ -1,3 +1,8 @@
+TODO:
+- i might need to look for different sprites or make my own because im not allowed to push these to github
+
+
+
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.

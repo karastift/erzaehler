@@ -22,9 +22,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.karastift.erzaehler.api.generateStoryJson
+import com.karastift.erzaehler.api.generateStoryTopic
 import com.karastift.erzaehler.story.StoryScreen
-import com.karastift.erzaehler.story.mockStoryJson
 import com.karastift.erzaehler.theme.ErzaehlerTheme
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -34,6 +36,9 @@ fun App() {
 
         // Current screen shown (maybe switch to real navigation later)
         var screen by remember { mutableStateOf("home") }
+        var storyJson by remember { mutableStateOf("") }
+
+        val scope = rememberCoroutineScope()
 
         Box(
             modifier = Modifier
@@ -43,10 +48,16 @@ fun App() {
         ) {
             when (screen) {
                 "home" -> HomeScreen(
-                    onStartStory = { screen = "story" }
+                    onSubmitPrompt = { prompt ->
+                        scope.launch {
+                            val json = generateStoryJson(prompt)
+                            storyJson = json
+                            screen = "story"
+                        }
+                    }
                 )
                 "story" -> StoryScreen(
-                    story = mockStoryJson,
+                    story = storyJson,
                     onBack = { screen = "home" }  // Return to home screen
                 )
             }
@@ -56,10 +67,11 @@ fun App() {
 
 @Composable
 fun HomeScreen(
-    onStartStory: () -> Unit
+    onSubmitPrompt: (String) -> Unit  // Submits the prompt to generate story JSON TODO: after separating into screens, find a cleaner solution
 ) {
-    // State for text field input
     var textInput by remember { mutableStateOf("") }
+
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -90,12 +102,16 @@ fun HomeScreen(
                 TextField(
                     value = textInput,
                     onValueChange = { textInput = it },
-                    label = { Text("I'm thinking of...") },
+                    label = { Text("I'm thinking of ...") },
                     modifier = Modifier.weight(1f)
                 )
 
                 IconButton(
-                    onClick = { /* TODO: Auto generate storyi */ }
+                    onClick = {
+                        scope.launch {
+                            textInput = generateStoryTopic()
+                        }
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.AutoAwesome,
@@ -105,10 +121,10 @@ fun HomeScreen(
             }
 
             Button(
-                onClick = onStartStory, // MockStory for now, later generated story
+                onClick = { onSubmitPrompt(textInput) },
                 modifier = Modifier.fillMaxWidth(0.6f)
             ) {
-                Text("tell me about it")
+                Text("tell me about it!")
             }
         }
     }
