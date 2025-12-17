@@ -20,6 +20,7 @@ fun ErzaehlerTheme(
             onBackground = Color(0xFF1F2937),
             onSurface = Color(0xFF1F2937)
         ),
+        typography = luaTypography(),
         content = content
     )
 }
