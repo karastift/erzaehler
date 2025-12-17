@@ -3,7 +3,7 @@ package com.karastift.erzaehler.api
 import kotlin.random.Random
 
 // TODO: Implement call to api
-suspend fun generateStoryJson(topic: String): String {
+fun generateStoryJson(topic: String): String {
     // Return mock JSON for now
     return """
         {
@@ -26,7 +26,7 @@ suspend fun generateStoryJson(topic: String): String {
     """
 }
 
-suspend fun generateStoryTopic(): String {
+fun generateStoryTopic(): String {
 
     val list = listOf(
         "Interaktion im an der Selbstbedienungskasse bei Rewe",
