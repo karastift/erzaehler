@@ -17,14 +17,15 @@ import org.jetbrains.compose.resources.imageResource
 fun AnimatedCharacter(
     character: Character,
     modifier: Modifier = Modifier,
-    scale: Float = 10f, // canvas scale
-    characterScale: Float = 1.6f, // character relative scaler (to adjust it to canvas)
+    scale: Float = 10f, // Canvas scale
+    characterScale: Float = 1.6f, // Character relative scaler (to adjust it to canvas, 1.6 worked good in simulator)
     frameDurationMs: Long = 200L,
     isPlaying: Boolean = true
 ) {
     val frames = character.idleFrames
     var frameIndex by remember { mutableStateOf(0) }
 
+    // Only animate when isPlaying
     LaunchedEffect(isPlaying) {
         if (!isPlaying) return@LaunchedEffect
         while (true) {
@@ -41,7 +42,7 @@ fun AnimatedCharacter(
     Canvas(
         modifier = modifier
             .size(canvasWidthDp, canvasHeightDp)
-//            .background(Color.LightGray) // just to debug
+//            .background(Color.LightGray) // Just to debug canvas size
     ) {
         val drawWidth = size.width * characterScale
         val drawHeight = size.height * characterScale
