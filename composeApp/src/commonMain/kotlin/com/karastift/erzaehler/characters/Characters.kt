@@ -6,7 +6,7 @@ import erzaehler.composeapp.generated.resources.*
 object Characters {
 
     val OldWoman = Character(
-        name = "Old Woman",
+        id = "old_woman",
         idleFrames = listOf(
             Res.drawable.old_woman_idling_1,
             Res.drawable.old_woman_idling_2,
@@ -16,7 +16,7 @@ object Characters {
     )
 
     val Policeman = Character(
-        name = "Policeman",
+        id = "policeman",
         idleFrames = listOf(
             Res.drawable.policeman_idling_1,
             Res.drawable.policeman_idling_2,
@@ -26,7 +26,7 @@ object Characters {
     )
 
     val Soldier = Character(
-        name = "Soldier",
+        id = "soldier",
         idleFrames = listOf(
             Res.drawable.soldier_idling_1,
             Res.drawable.soldier_idling_2,
@@ -36,7 +36,7 @@ object Characters {
     )
 
     val BlondeWoman = Character(
-        name = "Blonde Woman",
+        id = "blonde_woman",
         idleFrames = listOf(
             Res.drawable.blonde_woman_idling_1,
             Res.drawable.blonde_woman_idling_2,
@@ -46,7 +46,7 @@ object Characters {
     )
 
     val Farmer = Character(
-        name = "Farmer",
+        id = "farmer",
         idleFrames = listOf(
             Res.drawable.farmer_idling_1,
             Res.drawable.farmer_idling_2,
@@ -56,7 +56,7 @@ object Characters {
     )
 
     val PunkWoman = Character(
-        name = "Punk Woman",
+        id = "punk_woman",
         idleFrames = listOf(
             Res.drawable.punk_woman_idling_1,
             Res.drawable.punk_woman_idling_2,
@@ -66,7 +66,7 @@ object Characters {
     )
 
     val OldMan = Character(
-        name = "Old Man",
+        id = "old_man",
         idleFrames = listOf(
             Res.drawable.old_man_idling_1,
             Res.drawable.old_man_idling_2,
@@ -76,7 +76,7 @@ object Characters {
     )
 
     val Chef = Character(
-        name = "Chef",
+        id = "chef",
         idleFrames = listOf(
             Res.drawable.chef_idling_1,
             Res.drawable.chef_idling_2,
@@ -86,7 +86,7 @@ object Characters {
     )
 
     val Firefighter = Character(
-        name = "Firefighter",
+        id = "firefighter",
         idleFrames = listOf(
             Res.drawable.firefighter_idling_1,
             Res.drawable.firefighter_idling_2,
@@ -96,7 +96,7 @@ object Characters {
     )
 
     val Dracula = Character(
-        name = "Dracula",
+        id = "dracula",
         idleFrames = listOf(
             Res.drawable.dracula_idling_1,
             Res.drawable.dracula_idling_2,
@@ -106,7 +106,7 @@ object Characters {
     )
 
     val VikingKidBoy = Character(
-        name = "Viking Kid Boy",
+        id = "viking_kid_boy",
         idleFrames = listOf(
             Res.drawable.viking_kid_boy_idling_1,
             Res.drawable.viking_kid_boy_idling_2,
@@ -116,7 +116,7 @@ object Characters {
     )
 
     val Knight = Character(
-        name = "Knight",
+        id = "knight",
         idleFrames = listOf(
             Res.drawable.knight_idling_1,
             Res.drawable.knight_idling_2,
@@ -126,7 +126,7 @@ object Characters {
     )
 
     val BlondeMan = Character(
-        name = "Blonde Man",
+        id = "blonde_man",
         idleFrames = listOf(
             Res.drawable.blonde_man_idling_1,
             Res.drawable.blonde_man_idling_2,
@@ -136,7 +136,7 @@ object Characters {
     )
 
     val GoblinKid = Character(
-        name = "Goblin Kid",
+        id = "goblin_kid",
         idleFrames = listOf(
             Res.drawable.goblin_kid_idling_1,
             Res.drawable.goblin_kid_idling_2,
@@ -146,7 +146,7 @@ object Characters {
     )
 
     val PunkMen = Character(
-        name = "Punk Men",
+        id = "punk_men",
         idleFrames = listOf(
             Res.drawable.punk_men_idling_1,
             Res.drawable.punk_men_idling_2,
@@ -156,7 +156,7 @@ object Characters {
     )
 
     val Ninja = Character(
-        name = "Ninja",
+        id = "ninja",
         idleFrames = listOf(
             Res.drawable.ninja_idling_1,
             Res.drawable.ninja_idling_2,
@@ -166,7 +166,7 @@ object Characters {
     )
 
     val PunkKidBoy = Character(
-        name = "Punk Kid Boy",
+        id = "punk_kid_boy",
         idleFrames = listOf(
             Res.drawable.punk_kid_boy_idling_1,
             Res.drawable.punk_kid_boy_idling_2,
@@ -176,7 +176,7 @@ object Characters {
     )
 
     val GoblinMan = Character(
-        name = "Goblin Man",
+        id = "goblin_man",
         idleFrames = listOf(
             Res.drawable.goblin_man_idling_1,
             Res.drawable.goblin_man_idling_2,
@@ -186,7 +186,7 @@ object Characters {
     )
 
     val KnightKid = Character(
-        name = "Knight Kid",
+        id = "knight_kid",
         idleFrames = listOf(
             Res.drawable.knight_kid_idling_1,
             Res.drawable.knight_kid_idling_2,
@@ -196,7 +196,7 @@ object Characters {
     )
 
     val VikingWoman = Character(
-        name = "Viking Woman",
+        id = "viking_woman",
         idleFrames = listOf(
             Res.drawable.viking_woman_idling_1,
             Res.drawable.viking_woman_idling_2,
@@ -206,7 +206,7 @@ object Characters {
     )
 
     val BlondeKidGirl = Character(
-        name = "Blonde Kid Girl",
+        id = "blonde_kid_girl",
         idleFrames = listOf(
             Res.drawable.blonde_kid_girl_idling_1,
             Res.drawable.blonde_kid_girl_idling_2,
@@ -216,7 +216,7 @@ object Characters {
     )
 
     val Bride = Character(
-        name = "Bride",
+        id = "bride",
         idleFrames = listOf(
             Res.drawable.bride_idling_1,
             Res.drawable.bride_idling_2,
@@ -226,7 +226,7 @@ object Characters {
     )
 
     val Joker = Character(
-        name = "Joker",
+        id = "joker",
         idleFrames = listOf(
             Res.drawable.joker_idling_1,
             Res.drawable.joker_idling_2,
@@ -236,7 +236,7 @@ object Characters {
     )
 
     val GoblinWoman = Character(
-        name = "Goblin Woman",
+        id = "goblin_woman",
         idleFrames = listOf(
             Res.drawable.goblin_woman_idling_1,
             Res.drawable.goblin_woman_idling_2,
@@ -246,7 +246,7 @@ object Characters {
     )
 
     val BlueHairedKidGirl = Character(
-        name = "Blue Haired Kid Girl",
+        id = "blue_haired_kid_girl",
         idleFrames = listOf(
             Res.drawable.blue_haired_kid_girl_idling_1,
             Res.drawable.blue_haired_kid_girl_idling_2,
@@ -256,7 +256,7 @@ object Characters {
     )
 
     val Nun = Character(
-        name = "Nun",
+        id = "nun",
         idleFrames = listOf(
             Res.drawable.nun_idling_1,
             Res.drawable.nun_idling_2,
@@ -266,7 +266,7 @@ object Characters {
     )
 
     val BlueHairedWoman = Character(
-        name = "Blue Haired Woman",
+        id = "blue_haired_woman",
         idleFrames = listOf(
             Res.drawable.blue_haired_woman_idling_1,
             Res.drawable.blue_haired_woman_idling_2,
@@ -276,7 +276,7 @@ object Characters {
     )
 
     val Businessman = Character(
-        name = "Businessman",
+        id = "businessman",
         idleFrames = listOf(
             Res.drawable.businessman_idling_1,
             Res.drawable.businessman_idling_2,
@@ -286,7 +286,7 @@ object Characters {
     )
 
     val VikingMan = Character(
-        name = "Viking Man",
+        id = "viking_man",
         idleFrames = listOf(
             Res.drawable.viking_man_idling_1,
             Res.drawable.viking_man_idling_2,
@@ -295,7 +295,6 @@ object Characters {
         )
     )
 
-    // Helper list to access all characters programmatically
     val all = listOf(
         OldWoman, Policeman, Soldier, BlondeWoman, Farmer, PunkWoman,
         OldMan, Chef, Firefighter, Dracula, VikingKidBoy, Knight,
@@ -305,3 +304,7 @@ object Characters {
         Businessman, VikingMan
     )
 }
+
+fun characterFromId(id: String): Character =
+    Characters.all.find { it.id == id }
+        ?: throw IllegalArgumentException("Unknown character id: $id")
