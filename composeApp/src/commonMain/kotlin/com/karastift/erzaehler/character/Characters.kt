@@ -1,4 +1,4 @@
-package com.karastift.erzaehler.characters
+package com.karastift.erzaehler.character
 
 import erzaehler.composeapp.generated.resources.Res
 import erzaehler.composeapp.generated.resources.*

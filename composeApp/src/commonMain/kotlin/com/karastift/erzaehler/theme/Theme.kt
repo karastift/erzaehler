@@ -13,12 +13,12 @@ fun ErzaehlerTheme(
         colorScheme = lightColorScheme(
             background = Color(0xFFFFFFFF),
             surface = Color(0xFFFFFFFF),
-            primary = Color(0xFF898989),
-            primaryContainer = Color(0xFFFFFFFF),
+            primary = Color(0xFF232323),
+            primaryContainer = Color(0xFF232323),
             secondary = Color(0xFF444444),
             secondaryContainer = Color(0xFF212121),
             onBackground = Color(0xFF1F2937),
-            onSurface = Color(0xFF1F2937)
+            onSurface = Color(0xFF1F2937),
         ),
         typography = luaTypography(),
         content = content

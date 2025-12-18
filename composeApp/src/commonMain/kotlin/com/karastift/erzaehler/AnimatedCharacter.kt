@@ -1,14 +1,12 @@
 package com.karastift.erzaehler
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
-import com.karastift.erzaehler.characters.Character
+import com.karastift.erzaehler.character.Character
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.imageResource
 

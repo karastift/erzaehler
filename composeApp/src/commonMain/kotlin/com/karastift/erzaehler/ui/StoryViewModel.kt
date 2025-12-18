@@ -20,12 +20,6 @@ class StoryViewModel : ViewModel() {
     private val _navigationEvents = Channel<NavigationEvent>()
     val navigationEvents = _navigationEvents.receiveAsFlow()
 
-    data class StoryUIState(
-        val topic: String = "",
-        val isLoading: Boolean = false,
-        val storyJson: String = "",
-    )
-
     sealed class NavigationEvent {
         data object NavigateToStory : NavigationEvent()
     }

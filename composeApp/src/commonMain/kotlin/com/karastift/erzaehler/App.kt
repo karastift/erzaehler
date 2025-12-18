@@ -41,7 +41,6 @@ fun App(
             }
         }
 
-
         Scaffold() { innerPadding ->
             val uiState by viewModel.uiState.collectAsState()
 

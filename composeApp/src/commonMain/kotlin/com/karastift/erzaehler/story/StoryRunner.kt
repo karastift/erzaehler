@@ -3,6 +3,10 @@ package com.karastift.erzaehler.story
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.karastift.erzaehler.domain.model.Dialog
+import com.karastift.erzaehler.domain.model.Enter
+import com.karastift.erzaehler.domain.model.Exit
+import com.karastift.erzaehler.domain.model.Story
 import kotlin.collections.mutableSetOf
 
 class StoryRunner(

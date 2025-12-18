@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.karastift.erzaehler.AnimatedCharacter
-import com.karastift.erzaehler.characters.characterFromId
+import com.karastift.erzaehler.character.characterFromId
 import com.karastift.erzaehler.story.Story
 import com.karastift.erzaehler.story.StoryRunner
 import kotlinx.coroutines.Job
