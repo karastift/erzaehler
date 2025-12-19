@@ -3,10 +3,11 @@ package com.karastift.erzaehler.story
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.karastift.erzaehler.domain.model.Dialog
-import com.karastift.erzaehler.domain.model.Enter
-import com.karastift.erzaehler.domain.model.Exit
-import com.karastift.erzaehler.domain.model.Story
+import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
+import com.karastift.erzaehler.domain.model.entities.Dialog
+import com.karastift.erzaehler.domain.model.entities.Enter
+import com.karastift.erzaehler.domain.model.entities.Exit
+import com.karastift.erzaehler.domain.model.entities.Story
 import kotlin.collections.mutableSetOf
 
 class StoryRunner(
@@ -15,7 +16,7 @@ class StoryRunner(
     var index by mutableStateOf(0)
         private set
 
-    var visibleCharacters by mutableStateOf(mutableSetOf<String>())
+    var visibleCharacters by mutableStateOf(mutableSetOf<CharacterId>())
         private set
 
     var currentDialog: Dialog? by mutableStateOf(null)

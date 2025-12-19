@@ -1,26 +1,28 @@
-package com.karastift.erzaehler
+package com.karastift.erzaehler.character
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.karastift.erzaehler.character.Character
+import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.imageResource
 
 
 @Composable
 fun AnimatedCharacter(
-    character: Character,
+    characterId: CharacterId,
     modifier: Modifier = Modifier,
     scale: Float = 10f, // Canvas scale
     characterScale: Float = 1.6f, // Character relative scaler (to adjust it to canvas, 1.6 worked good in simulator)
     frameDurationMs: Long = 200L,
     isPlaying: Boolean = true
 ) {
-    val frames = character.idleFrames
+    val frames = CharacterAssets.getCharacter(characterId).idleFrames
     var frameIndex by remember { mutableStateOf(0) }
 
     // Only animate when isPlaying
@@ -51,11 +53,11 @@ fun AnimatedCharacter(
 
         drawImage(
             image = image,
-            dstOffset = androidx.compose.ui.unit.IntOffset(
+            dstOffset = IntOffset(
                 offsetX.toInt(),
                 offsetY.toInt()
             ),
-            dstSize = androidx.compose.ui.unit.IntSize(
+            dstSize = IntSize(
                 drawWidth.toInt(),
                 drawHeight.toInt()
             ),
