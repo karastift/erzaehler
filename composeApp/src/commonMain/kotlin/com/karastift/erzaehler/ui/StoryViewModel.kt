@@ -2,8 +2,10 @@ package com.karastift.erzaehler.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.karastift.erzaehler.api.generateStoryJson
-import com.karastift.erzaehler.api.generateStoryTopic
+import com.karastift.erzaehler.domain.model.enums.LanguageCode
+import com.karastift.erzaehler.domain.model.enums.LanguageLevel
+import com.karastift.erzaehler.domain.usecase.GenerateStoryUseCase
+import com.karastift.erzaehler.domain.usecase.GenerateTopicUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +13,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class StoryViewModel : ViewModel() {
+class StoryViewModel(
+    private val generateTopic: GenerateTopicUseCase,
+//    private val generateStory: GenerateStoryUseCase,
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StoryUIState())
     val uiState: StateFlow<StoryUIState> = _uiState
@@ -42,10 +47,19 @@ class StoryViewModel : ViewModel() {
         }
     }
 
-    fun generateTopic() {
+    fun onGenerateTopic() {
         viewModelScope.launch {
-            val generated = generateStoryTopic()
-            updateTopic(generated)
+
+            setLoading(true)
+
+            val response = generateTopic(
+                LanguageCode.EN,
+                languageLevel = LanguageLevel.ELEMENTARY,
+                suggestion = ""
+            )
+
+            setLoading(false)
+            updateTopic(response.topic)
         }
     }
 
@@ -54,9 +68,7 @@ class StoryViewModel : ViewModel() {
             setLoading(true)
 
             try {
-                val json = generateStoryJson(_uiState.value.topic)
 
-                setStoryJson(json)
                 setLoading(false)
 
                 _navigationEvents.send(NavigationEvent.NavigateToStory)
