@@ -4,19 +4,17 @@ import kotlinx.serialization.Serializable
 
 /** ISO 639-1 codes */
 @Serializable
-enum class LanguageCode(val code: String) {
-    EN("en"),
-    ES("es"),
-    FR("fr"),
-    DE("de"),
-    ZH("zh"),
-    JA("ja"),
-    KO("ko"),
-    AR("ar"),
-    TR("tr"),
-    PL("pl");
-
-    override fun toString() = code
+enum class LanguageCode {
+    EN,
+    ES,
+    FR,
+    DE,
+    ZH,
+    JA,
+    KO,
+    AR,
+    TR,
+    PL
 }
 
 val languageCodeToName = mapOf(
