@@ -28,7 +28,6 @@ fun Route.index() {
     }
 }
 
-// TODO: Maybe proper error handling in the unlikely case of parsing failure
 fun Route.generateTopic() {
     post("/topic") {
 

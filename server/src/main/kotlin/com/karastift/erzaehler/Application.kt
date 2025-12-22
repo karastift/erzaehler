@@ -1,24 +1,17 @@
 package com.karastift.erzaehler
 
 import ai.koog.ktor.Koog
-import ai.koog.ktor.KoogAgentsConfig
-import ai.koog.ktor.llm
-import ai.koog.prompt.dsl.prompt
-import ai.koog.prompt.executor.clients.google.GoogleModels
-import ai.koog.prompt.executor.clients.openai.OpenAIModels
-import ai.koog.prompt.llm.LLMProvider
-import ai.koog.prompt.llm.LLModel
 import com.karastift.erzaehler.Constants.SERVER_PORT
-import com.karastift.erzaehler.domain.model.requests.TopicRequest
-import com.karastift.erzaehler.prompts.topicPrompt
-import io.ktor.http.HttpStatusCode
+import com.karastift.erzaehler.domain.model.enums.LanguageCode
+import com.karastift.erzaehler.voice.CartesiaVoiceProvider
+import io.ktor.client.HttpClient
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
+import io.ktor.client.engine.cio.CIO
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.request.receive
-import io.ktor.server.request.receiveText
+import io.ktor.server.plugins.di.dependencies
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
@@ -44,9 +37,37 @@ fun Application.module() {
         })
     }
 
+    val httpClient = HttpClient(CIO) {
+        install(io.ktor.client.plugins.contentnegotiation.ContentNegotiation) {
+            json()
+        }
+    }
+
+    dependencies {
+        provide {
+            CartesiaVoiceProvider(
+                httpClient = httpClient,
+                token = System.getenv("CARTESIA_API_KEY"),
+                cartesiaVersion = "2025-04-16",
+            )
+        }
+    }
+
     routing {
         index()
         generateTopic()
         generateStory()
+        post("/voice") {
+            val voiceProvier: CartesiaVoiceProvider by dependencies
+
+            val bytes = voiceProvier.generateVoice(
+                text = "Was geeeeeeeeehhhttt?? Ich habe heute echt gar kein Bock was zu machen. Hast du Lust vorbeizukommen?",
+                voiceId = "b7187e84-fe22-4344-ba4a-bc013fcb533e",
+                modelId = "sonic-3",
+                languageCode = LanguageCode.EN,
+            )
+
+            call.respondBytes(bytes)
+        }
     }
 }
