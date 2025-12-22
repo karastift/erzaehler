@@ -2,12 +2,17 @@ package com.karastift.erzaehler.data.repository
 
 import com.karastift.erzaehler.domain.model.enums.LanguageCode
 import com.karastift.erzaehler.domain.model.enums.LanguageLevel
+import com.karastift.erzaehler.domain.model.requests.StoryRequest
+import com.karastift.erzaehler.domain.model.requests.TopicRequest
 import com.karastift.erzaehler.domain.model.responses.StoryResponse
 import com.karastift.erzaehler.domain.model.responses.TopicResponse
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
-import kotlin.random.Random
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import kotlinx.io.IOException
 
 class StoryRepositoryClientImpl(
     private val httpClient: HttpClient,
@@ -17,51 +22,46 @@ class StoryRepositoryClientImpl(
     suspend fun getTopic(
         languageCode: LanguageCode,
         languageLevel: LanguageLevel,
-        suggestion: String?
+        suggestion: String
     ): TopicResponse {
 
-        val res = httpClient.get("https://httpbin.org/get").bodyAsText()
-        println(res)
-
-        val list = listOf(
-            "Interaktion im an der Selbstbedienungskasse bei Rewe",
-            "Wer aus der WG hat meinen Aufstrich aufgebraucht??",
-            "Studium ist bald vorbei und eigentlich will ich noch gar nicht arbeiten"
+        val body = TopicRequest(
+            languageCode = languageCode,
+            languageLevel = languageLevel,
+            suggestion = suggestion
         )
-        val randomIndex: Int = Random.nextInt(list.size)
 
-        val topic =  list[randomIndex]
-
-        return TopicResponse(topic = topic)
+        try {
+            val response = httpClient.post("/topic") {
+                setBody(body)
+            }
+            return response.body<TopicResponse>()
+        }
+        catch (e: Exception) {
+            throw mapException(e)
+        }
     }
 
     override suspend fun getStory(
+        languageCode: LanguageCode,
+        languageLevel: LanguageLevel,
         topic: String,
-        language: LanguageCode,
-        languageLevel: LanguageLevel
     ): StoryResponse {
 
-        val storyString =  """
-        {
-          "characters": [
-            { "id": "policeman", "name": "policeman" },
-            { "id": "businessman", "name": "businessman" }
-          ],
-          "script": [
-            { "type": "enter", "id": "policeman" },
-            { "type": "enter", "id": "businessman" },
-            { "type": "dialog", "speaker": "policeman", "text": "Hello." },
-            { "type": "dialog", "speaker": "businessman", "text": "Oh, hi!" },
-            { "type": "dialog", "speaker": "policeman", "text": "Nice evening, isn't it?" },
-            { "type": "exit", "id": "businessman" },
-            { "type": "dialog", "speaker": "policeman", "text": "Wait, where did you go?" },
-            { "type": "enter", "id": "businessman" },
-            { "type": "dialog", "speaker": "businessman", "text": "Hallo ich bin wieder da" }
-          ]
-        }
-        """
+        val body = StoryRequest(
+            languageCode = languageCode,
+            languageLevel = languageLevel,
+            topic = topic,
+        )
 
-//        return StoryResponse(story = )
-        TODO("not implemented")
+        try {
+            val response = httpClient.post("/story") {
+                setBody(body)
+            }
+            return response.body<StoryResponse>()
+        }
+        catch (e: Exception) {
+            throw mapException(e)
+        }
     }
 }

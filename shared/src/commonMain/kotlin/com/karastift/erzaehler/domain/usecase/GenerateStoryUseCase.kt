@@ -14,6 +14,10 @@ class GenerateStoryUseCase(
         languageLevel: LanguageLevel,
     ): StoryResponse {
 
-        return repository.getStory(topic, languageCode, languageLevel)
+        return repository.getStory(
+            languageCode = languageCode,
+            languageLevel = languageLevel,
+            topic = topic,
+        )
     }
 }

@@ -19,6 +19,7 @@ fun ErzaehlerTheme(
             secondaryContainer = Color(0xFF212121),
             onBackground = Color(0xFF1F2937),
             onSurface = Color(0xFF1F2937),
+            error = Color(0xFFD90003),
         ),
         typography = luaTypography(),
         content = content

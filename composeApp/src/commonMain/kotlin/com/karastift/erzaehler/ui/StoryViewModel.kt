@@ -2,6 +2,7 @@ package com.karastift.erzaehler.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.karastift.erzaehler.domain.model.entities.Story
 import com.karastift.erzaehler.domain.model.enums.LanguageCode
 import com.karastift.erzaehler.domain.model.enums.LanguageLevel
 import com.karastift.erzaehler.domain.usecase.GenerateStoryUseCase
@@ -13,9 +14,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+// TODO: maybe (!!) move to shared module
+
 class StoryViewModel(
     private val generateTopic: GenerateTopicUseCase,
-//    private val generateStory: GenerateStoryUseCase,
+    private val generateStory: GenerateStoryUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(StoryUIState())
@@ -29,10 +32,21 @@ class StoryViewModel(
         data object NavigateToStory : NavigationEvent()
     }
 
+    fun setIsUserSuggestion(flag: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(isUserSuggestion = flag)
+        }
+    }
+
     fun updateTopic(topic: String) {
         _uiState.update { currentState ->
             currentState.copy(topic = topic)
         }
+    }
+
+    fun updateTopicByUser(topic: String) {
+        setIsUserSuggestion(true)
+        updateTopic(topic)
     }
 
     fun setLoading(isLoading: Boolean) {
@@ -41,9 +55,15 @@ class StoryViewModel(
         }
     }
 
-    fun setStoryJson(storyJson: String) {
+    fun setErrorMessage(errorMessage: String) {
         _uiState.update { currentState ->
-            currentState.copy(storyJson = storyJson)
+            currentState.copy(errorMessage = errorMessage)
+        }
+    }
+
+    fun setStory(story: Story) {
+        _uiState.update { currentState ->
+            currentState.copy(story = story)
         }
     }
 
@@ -51,29 +71,52 @@ class StoryViewModel(
         viewModelScope.launch {
 
             setLoading(true)
+            setErrorMessage("")
 
-            val response = generateTopic(
-                LanguageCode.EN,
-                languageLevel = LanguageLevel.ELEMENTARY,
-                suggestion = ""
-            )
+            val suggestion = if (uiState.value.isUserSuggestion) uiState.value.topic else ""
 
-            setLoading(false)
-            updateTopic(response.topic)
+            try {
+                val response = generateTopic(
+                    languageCode = LanguageCode.EN,
+                    languageLevel = LanguageLevel.ELEMENTARY,
+                    suggestion = suggestion
+                )
+
+                updateTopic(response.topic.description)
+                setIsUserSuggestion(false)
+            }
+            catch (e: Exception) {
+                setErrorMessage(e.message ?: "Something went wrong.")
+            }
+            finally {
+               setLoading(false)
+            }
         }
     }
 
-    fun generateStory() {
+    fun onGenerateStory() {
         viewModelScope.launch {
+
             setLoading(true)
+            setErrorMessage("")
 
             try {
+                val response = generateStory(
+                    languageCode = LanguageCode.EN,
+                    languageLevel = LanguageLevel.ELEMENTARY,
+                    topic = uiState.value.topic
+                )
 
-                setLoading(false)
+                setStory(response.story)
+                setIsUserSuggestion(true)
+                updateTopic("")
 
-                _navigationEvents.send(NavigationEvent.NavigateToStory)
-            } catch (e: Exception) {
-                // TODO: Handle error
+                _navigationEvents.trySend(NavigationEvent.NavigateToStory)
+            }
+            catch (e: Exception) {
+                setErrorMessage(e.message ?: "Something went wrong.")
+            }
+            finally {
                 setLoading(false)
             }
         }

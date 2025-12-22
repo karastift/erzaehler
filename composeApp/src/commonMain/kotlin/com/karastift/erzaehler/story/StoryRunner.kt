@@ -3,7 +3,7 @@ package com.karastift.erzaehler.story
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
+import com.karastift.erzaehler.domain.model.enums.CharacterId
 import com.karastift.erzaehler.domain.model.entities.Dialog
 import com.karastift.erzaehler.domain.model.entities.Enter
 import com.karastift.erzaehler.domain.model.entities.Exit

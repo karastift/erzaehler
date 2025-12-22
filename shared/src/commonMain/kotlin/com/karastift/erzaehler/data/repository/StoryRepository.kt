@@ -11,12 +11,12 @@ interface StoryRepository {
     suspend fun getTopic(
         languageCode: LanguageCode,
         languageLevel: LanguageLevel,
-        suggestion: String?,
+        suggestion: String,
     ): TopicResponse
 
     suspend fun getStory(
-        topic: String,
-        language: LanguageCode,
+        languageCode: LanguageCode,
         languageLevel: LanguageLevel,
+        topic: String,
     ): StoryResponse
 }

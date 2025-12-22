@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,7 +17,6 @@ import com.karastift.erzaehler.ui.StoryViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.getKoin
-import org.koin.core.KoinApplication
 
 // Enum for Screens in the APp
 enum class ErzaehlerScreen { Home, Story }
@@ -45,7 +43,7 @@ fun App() {
                 }
             }
 
-            Scaffold() { innerPadding ->
+            Scaffold { innerPadding ->
                 val uiState by viewModel.uiState.collectAsState()
 
                 NavHost(
@@ -59,16 +57,23 @@ fun App() {
                         HomeScreen(
                             topic = uiState.topic,
                             isLoading = uiState.isLoading,
-                            onTopicChange = viewModel::updateTopic,
+                            errorMessage = uiState.errorMessage,
+                            onTopicChange = viewModel::updateTopicByUser,
                             onGenerateTopic = viewModel::onGenerateTopic,
-                            onTopicSubmit = viewModel::generateStory,
+                            onTopicSubmit = viewModel::onGenerateStory,
                         )
                     }
-                    composable(route = ErzaehlerScreen.Story.name) {
-                        StoryScreen(
-                            story = uiState.storyJson,
-                            onBack = { navController.popBackStack() },
-                        )
+                    composable(ErzaehlerScreen.Story.name) {
+                        val story = uiState.story
+                        if (story != null) {
+                            StoryScreen(
+                                story = story,
+                                onBack = navController::popBackStack
+                            )
+                        } else {
+                            // Back out again
+                            LaunchedEffect(Unit) { navController.popBackStack() }
+                        }
                     }
                 }
             }

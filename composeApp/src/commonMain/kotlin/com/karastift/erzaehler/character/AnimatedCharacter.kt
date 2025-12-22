@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
+import com.karastift.erzaehler.domain.model.enums.CharacterId
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.imageResource
 

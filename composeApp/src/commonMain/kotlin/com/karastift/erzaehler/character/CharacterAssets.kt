@@ -2,7 +2,7 @@ package com.karastift.erzaehler.character
 
 import erzaehler.composeapp.generated.resources.Res
 import erzaehler.composeapp.generated.resources.*
-import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
+import com.karastift.erzaehler.domain.model.enums.CharacterId
 
 object CharacterAssets {
 

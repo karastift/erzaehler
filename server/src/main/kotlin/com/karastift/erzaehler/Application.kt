@@ -8,6 +8,7 @@ import ai.koog.prompt.executor.clients.google.GoogleModels
 import ai.koog.prompt.executor.clients.openai.OpenAIModels
 import ai.koog.prompt.llm.LLMProvider
 import ai.koog.prompt.llm.LLModel
+import com.karastift.erzaehler.Constants.SERVER_PORT
 import com.karastift.erzaehler.domain.model.requests.TopicRequest
 import com.karastift.erzaehler.prompts.topicPrompt
 import io.ktor.http.HttpStatusCode

@@ -1,6 +1,6 @@
 package com.karastift.erzaehler.domain.model.entities
 
-import com.karastift.erzaehler.domain.model.valueobjects.CharacterId
+import com.karastift.erzaehler.domain.model.enums.CharacterId
 import kotlinx.serialization.Serializable
 
 @Serializable

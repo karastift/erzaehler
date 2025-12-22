@@ -1,4 +1,4 @@
-package com.karastift.erzaehler.domain.model.valueobjects
+package com.karastift.erzaehler.domain.model.enums
 
 import kotlinx.serialization.Serializable
 

@@ -37,15 +37,11 @@ private val jsonStory = Json {
 
 @Composable
 fun StoryScreen(
-    story: String,
+    story: Story,
     onBack: () -> Unit = {}
 ) {
-    // Parse json into Story
-    val parsedStory = remember {
-        jsonStory.decodeFromString<Story>(story)
-    }
 
-    val runner = remember { StoryRunner(parsedStory) }
+    val runner = remember { StoryRunner(story) }
     val currentDialog = runner.currentDialog
 
     val scope = rememberCoroutineScope()

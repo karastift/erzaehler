@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.karastift.erzaehler.theme.ErzaehlerTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -41,6 +42,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun HomeScreen(
     topic: String,
     isLoading: Boolean,
+    errorMessage: String,
     onTopicChange: (String) -> Unit,
     onGenerateTopic: () -> Unit,
     onTopicSubmit: () -> Unit,
@@ -77,6 +79,14 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+                Row {
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.displaySmall,
+                        fontSize = 20.sp
+                    )
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
@@ -106,14 +116,14 @@ fun HomeScreen(
                 if (isLoading) {
                     CircularProgressIndicator()
                 } else {
-                        Button(
-                            onClick = onTopicSubmit,
-                            modifier = Modifier.fillMaxWidth(0.4f),
-                            enabled = topic.isNotBlank() && !isLoading,
-                            shape = RoundedCornerShape(15.dp),
-                        ) {
-                            Text("tell me about it!")
-                        }
+                    Button(
+                        onClick = onTopicSubmit,
+                        modifier = Modifier.fillMaxWidth(0.4f),
+                        enabled = topic.isNotBlank() && !isLoading,
+                        shape = RoundedCornerShape(15.dp),
+                    ) {
+                        Text("tell me about it!")
+                    }
                 }
             }
         }
@@ -130,7 +140,8 @@ fun HomeScreenPreview() {
             isLoading = false,
             onTopicChange = {},
             onGenerateTopic = {},
-            onTopicSubmit = {}
+            onTopicSubmit = {},
+            errorMessage = "Something went wrong.",
         )
     }
 }

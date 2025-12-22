@@ -1,7 +1,12 @@
 package com.karastift.erzaehler.domain.model.requests
 
-class StoryRequest {
-    init {
-        TODO("not implemented")
-    }
-}
+import com.karastift.erzaehler.domain.model.enums.LanguageCode
+import com.karastift.erzaehler.domain.model.enums.LanguageLevel
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class StoryRequest(
+    val languageCode: LanguageCode,
+    val languageLevel: LanguageLevel,
+    val topic: String,
+)

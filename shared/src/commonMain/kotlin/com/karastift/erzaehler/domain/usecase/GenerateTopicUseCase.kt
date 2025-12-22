@@ -12,7 +12,7 @@ class GenerateTopicUseCase(
     suspend operator fun invoke(
         languageCode: LanguageCode,
         languageLevel: LanguageLevel,
-        suggestion: String?,
+        suggestion: String,
     ): TopicResponse {
 
         return repository.getTopic(
