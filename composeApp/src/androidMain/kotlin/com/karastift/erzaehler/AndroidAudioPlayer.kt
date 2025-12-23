@@ -13,25 +13,7 @@ class AndroidAudioPlayer(
     private var player: MediaPlayer? = null
     private var tempFile: File? = null
 
-    override fun load(audio: AudioData) {
-        release()
-
-        // create temp file
-        tempFile = File.createTempFile(
-            "audio_",
-            ".mp3",
-            context.cacheDir
-        ).apply {
-            writeBytes(audio.bytes)
-        }
-
-        player = MediaPlayer().apply {
-            setDataSource(tempFile!!.absolutePath)
-            prepare()
-        }
-    }
-
-    override fun play() {
+    override suspend fun play(audioData: AudioData) {
         player?.start()
     }
 

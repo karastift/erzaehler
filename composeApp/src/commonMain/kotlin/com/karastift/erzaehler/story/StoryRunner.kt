@@ -11,8 +11,7 @@ import com.karastift.erzaehler.domain.model.entities.Exit
 import com.karastift.erzaehler.domain.model.entities.Story
 import com.karastift.erzaehler.domain.model.requests.AudioRequest
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.collections.mutableSetOf
@@ -31,47 +30,50 @@ class StoryRunner(
     var currentDialog: Dialog? by mutableStateOf(null)
         private set
 
+    private var runJob: Job? = null
+
     init {
-        advance()  // Initialize to first dialog or end
+        start()  // Initialize to first dialog or end
     }
 
     fun next() {
+        runJob?.cancel()
         index++
-        advance()
+        start()
         preloadAudio()
     }
 
-    private fun advance() {
-        while (!isFinished()) {
-            when (val item = story.script[index]) {
-                is Dialog -> {
-                    currentDialog = item
+    private fun start() {
+        runJob?.cancel()
 
-                    val audioRequest = AudioRequest(
-                        languageCode = story.languageCode,
-                        languageLevel = story.languageLevel,
-                        dialog = item,
-                    )
+        runJob = scope.launch {
+            while (!isFinished()) {
+                when (val item = story.script[index]) {
+                    is Dialog -> {
+                        currentDialog = item
 
-                    scope.launch {
-                        audioManager.ensureAudioAndPlay(audioRequest)
+                        val audioRequest = AudioRequest(
+                            languageCode = story.languageCode,
+                            languageLevel = story.languageLevel,
+                            dialog = item,
+                        )
+
+                        audioManager.playAndWait(audioRequest)
                     }
-
-                    return // Wait until user clicks next
+                    is Enter -> {
+                        visibleCharacters.add(item.id)
+                    }
+                    is Exit -> {
+                        visibleCharacters.remove(item.id)
+                    }
                 }
-                is Enter -> {
-                    visibleCharacters.add(item.id)
-                }
-                is Exit -> {
-                    visibleCharacters.remove(item.id)
-                }
+                index++ // Continue to next item if action
             }
-            index++ // Continue to next item if action
+            currentDialog = null // Reached end
         }
-        currentDialog = null // Reached end
     }
 
-    fun isFinished(): Boolean = index >= story.script.lastIndex
+    fun isFinished(): Boolean = index >= story.script.size
 
     private fun preloadAudio(n: Int = 3) {
 
