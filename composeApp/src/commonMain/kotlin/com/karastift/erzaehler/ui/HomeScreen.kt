@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.karastift.erzaehler.theme.ErzaehlerTheme
@@ -84,6 +85,7 @@ fun HomeScreen(
                         text = errorMessage,
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.displaySmall,
+                        textAlign = TextAlign.Center,
                         fontSize = 20.sp
                     )
                 }

@@ -1,8 +1,15 @@
 package com.karastift.erzaehler.di
 
 import com.karastift.erzaehler.Constants
+import com.karastift.erzaehler.audio.AudioCache
+import com.karastift.erzaehler.audio.AudioManager
+import com.karastift.erzaehler.audio.AudioPlayer
+import com.karastift.erzaehler.audio.InMemoryAudioCache
+import com.karastift.erzaehler.data.repository.AudioRepository
+import com.karastift.erzaehler.data.repository.AudioRepositoryClientImpl
 import com.karastift.erzaehler.data.repository.StoryRepository
 import com.karastift.erzaehler.data.repository.StoryRepositoryClientImpl
+import com.karastift.erzaehler.domain.usecase.GenerateAudioUseCase
 import com.karastift.erzaehler.domain.usecase.GenerateStoryUseCase
 import com.karastift.erzaehler.domain.usecase.GenerateTopicUseCase
 import com.karastift.erzaehler.ui.StoryViewModel
@@ -38,6 +45,12 @@ val appModule = module {
         )
     }
 
+    single<AudioRepository> {
+        AudioRepositoryClientImpl(
+            httpClient = get()
+        )
+    }
+
     single<GenerateTopicUseCase> {
         GenerateTopicUseCase(
             repository = get()
@@ -47,6 +60,22 @@ val appModule = module {
     single<GenerateStoryUseCase> {
         GenerateStoryUseCase(
             repository = get()
+        )
+    }
+
+    single<GenerateAudioUseCase> {
+        GenerateAudioUseCase(
+            repository = get()
+        )
+    }
+
+    single<AudioCache> { InMemoryAudioCache() }
+
+    single<AudioManager> {
+        AudioManager(
+            generateAudio = get(),
+            audioPlayer = get(),
+            cache = get(),
         )
     }
 

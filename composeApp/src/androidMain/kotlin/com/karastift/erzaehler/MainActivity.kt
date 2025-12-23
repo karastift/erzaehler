@@ -6,14 +6,30 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.karastift.erzaehler.audio.AudioPlayer
+import com.karastift.erzaehler.di.appModule
+import org.koin.compose.KoinApplication
+import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        val audioPlayer = AndroidAudioPlayer()
         setContent {
-            App()
+            KoinApplication(
+                application = {
+                    modules(
+                        appModule,
+                        module {
+                            single<AudioPlayer> { audioPlayer }
+                        }
+                    )
+                }
+            ) {
+                App()
+            }
         }
     }
 }
@@ -21,5 +37,16 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    KoinApplication(
+        application = {
+            modules(
+                appModule,
+                module {
+                    single<AudioPlayer> { AndroidAudioPlayer() }
+                }
+            )
+        }
+    ) {
+        App()
+    }
 }

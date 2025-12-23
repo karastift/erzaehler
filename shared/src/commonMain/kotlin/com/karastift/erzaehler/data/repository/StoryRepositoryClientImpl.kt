@@ -18,8 +18,7 @@ class StoryRepositoryClientImpl(
     private val httpClient: HttpClient,
 ) : StoryRepository {
 
-    override
-    suspend fun getTopic(
+    override suspend fun getTopic(
         languageCode: LanguageCode,
         languageLevel: LanguageLevel,
         suggestion: String

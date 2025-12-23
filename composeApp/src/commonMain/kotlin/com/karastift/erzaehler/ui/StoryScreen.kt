@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.karastift.erzaehler.audio.AudioManager
+import com.karastift.erzaehler.audio.AudioPlayer
 import com.karastift.erzaehler.character.AnimatedCharacter
 import com.karastift.erzaehler.domain.model.entities.Story
 import com.karastift.erzaehler.story.StoryRunner
@@ -30,21 +32,24 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
-private val jsonStory = Json {
-    ignoreUnknownKeys = true
-    classDiscriminator = "type" // Polymorphic deserialization based on type field in provided json
-}
 
 @Composable
 fun StoryScreen(
     story: Story,
-    onBack: () -> Unit = {}
+    onBack: () -> Unit = {},
+    audioManager: AudioManager,
 ) {
+    val scope = rememberCoroutineScope()
 
-    val runner = remember { StoryRunner(story) }
+    val runner = remember {
+        StoryRunner(
+            story = story,
+            audioManager = audioManager,
+            scope = scope,
+        )
+    }
     val currentDialog = runner.currentDialog
 
-    val scope = rememberCoroutineScope()
     var displayedText by remember { mutableStateOf("") }
     var fullText by remember { mutableStateOf("") }
     var animationJob: Job? by remember { mutableStateOf(null) }

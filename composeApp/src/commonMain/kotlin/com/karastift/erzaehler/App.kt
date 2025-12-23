@@ -9,6 +9,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.karastift.erzaehler.audio.AudioManager
+import com.karastift.erzaehler.audio.AudioPlayer
 import com.karastift.erzaehler.di.appModule
 import com.karastift.erzaehler.ui.StoryScreen
 import com.karastift.erzaehler.theme.ErzaehlerTheme
@@ -22,13 +24,14 @@ import org.koin.compose.getKoin
 enum class ErzaehlerScreen { Home, Story }
 
 @Composable
-@Preview
 fun App() {
 
     KoinApplication(application = {
         modules(appModule)
     }) {
         val viewModel: StoryViewModel = getKoin().get<StoryViewModel>()
+        val audioManger = getKoin().get<AudioManager>()
+
         val navController: NavHostController = rememberNavController()
 
         ErzaehlerTheme {
@@ -68,7 +71,8 @@ fun App() {
                         if (story != null) {
                             StoryScreen(
                                 story = story,
-                                onBack = navController::popBackStack
+                                onBack = navController::popBackStack,
+                                audioManager = audioManger,
                             )
                         } else {
                             // Back out again
