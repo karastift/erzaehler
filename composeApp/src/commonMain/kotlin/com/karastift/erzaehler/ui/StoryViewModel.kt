@@ -32,6 +32,18 @@ class StoryViewModel(
         data object NavigateToStory : NavigationEvent()
     }
 
+    fun setLanguage(languageCode: LanguageCode) {
+        _uiState.update { currentState ->
+            currentState.copy(language = languageCode)
+        }
+    }
+
+    fun setLanguageLevel(languageLevel: LanguageLevel) {
+        _uiState.update { currentState ->
+            currentState.copy(languageLevel = languageLevel)
+        }
+    }
+
     fun setIsUserSuggestion(flag: Boolean) {
         _uiState.update { currentState ->
             currentState.copy(isUserSuggestion = flag)
@@ -102,8 +114,8 @@ class StoryViewModel(
 
             try {
                 val response = generateStory(
-                    languageCode = LanguageCode.KO,
-                    languageLevel = LanguageLevel.PROFICIENT,
+                    languageCode = uiState.value.language,
+                    languageLevel = uiState.value.languageLevel,
                     topic = uiState.value.topic
                 )
 

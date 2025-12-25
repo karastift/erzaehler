@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.karastift.erzaehler.audio.AudioPlayer
 import com.karastift.erzaehler.di.appModule
+import com.karastift.erzaehler.domain.model.entities.AudioData
 import org.koin.compose.KoinApplication
 import org.koin.dsl.module
 
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val audioPlayer = AndroidAudioPlayer()
+        val audioPlayer = AndroidAudioPlayer(applicationContext)
         setContent {
             KoinApplication(
                 application = {
@@ -34,6 +35,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Fake implementation for previews (doesn't require context)
+class FakeAudioPlayer : AudioPlayer {
+    override suspend fun play(audioData: AudioData) {}
+    override fun pause() {}
+    override fun stop() {}
+    override fun setVolume(volume: Float) {}
+}
+
 @Preview
 @Composable
 fun AppAndroidPreview() {
@@ -42,7 +51,7 @@ fun AppAndroidPreview() {
             modules(
                 appModule,
                 module {
-                    single<AudioPlayer> { AndroidAudioPlayer() }
+                    single<AudioPlayer> { FakeAudioPlayer() }
                 }
             )
         }

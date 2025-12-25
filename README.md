@@ -1,5 +1,9 @@
 TODO:
 - i might need to look for different sprites or make my own because im not allowed to push these to github
+- consider switching to vibe voice (self hosting is probably the best option atm)
+  - after contest submission to not break app before (requires many logic changes)
+  - https://huggingface.co/microsoft/VibeVoice-1.5B
+  - speech to text needed: generate timestamps for subtitles (switch scenes/characters according to these)
 
 FUTURE:
 - different modes

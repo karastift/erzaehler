@@ -31,3 +31,16 @@ val languageCodeToName = mapOf(
 )
 
 fun LanguageCode.displayName(): String = languageCodeToName[this] ?: throw IllegalArgumentException("Unknown language code: $languageCodeToName")
+
+fun LanguageCode.toFlag(): String = when (this) {
+    LanguageCode.EN -> "🇺🇸"
+    LanguageCode.ES -> "🇪🇸"
+    LanguageCode.FR -> "🇫🇷"
+    LanguageCode.DE -> "🇩🇪"
+    LanguageCode.ZH -> "🇨🇳"
+    LanguageCode.JA -> "🇯🇵"
+    LanguageCode.KO -> "🇰🇷"
+    LanguageCode.AR -> "🇸🇦"
+    LanguageCode.TR -> "🇹🇷"
+    LanguageCode.PL -> "🇵🇱"
+}

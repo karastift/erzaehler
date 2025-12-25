@@ -59,9 +59,13 @@ fun App() {
                     composable(route = ErzaehlerScreen.Home.name) {
                         HomeScreen(
                             topic = uiState.topic,
+                            onTopicChange = viewModel::updateTopicByUser,
+                            language = uiState.language,
+                            onLanguageChange = viewModel::setLanguage,
+                            level = uiState.languageLevel,
+                            onLevelChange = viewModel::setLanguageLevel,
                             isLoading = uiState.isLoading,
                             errorMessage = uiState.errorMessage,
-                            onTopicChange = viewModel::updateTopicByUser,
                             onGenerateTopic = viewModel::onGenerateTopic,
                             onTopicSubmit = viewModel::onGenerateStory,
                         )
