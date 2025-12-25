@@ -3,16 +3,16 @@ package com.karastift.erzaehler.story
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.karastift.erzaehler.Constants
 import com.karastift.erzaehler.audio.AudioManager
 import com.karastift.erzaehler.domain.model.enums.CharacterId
 import com.karastift.erzaehler.domain.model.entities.Dialog
 import com.karastift.erzaehler.domain.model.entities.Enter
 import com.karastift.erzaehler.domain.model.entities.Exit
 import com.karastift.erzaehler.domain.model.entities.Story
-import com.karastift.erzaehler.domain.model.requests.AudioRequest
+import com.karastift.erzaehler.domain.model.requests.VoiceRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.collections.mutableSetOf
 
@@ -52,13 +52,15 @@ class StoryRunner(
                     is Dialog -> {
                         currentDialog = item
 
-                        val audioRequest = AudioRequest(
+                        val voiceRequest = VoiceRequest(
                             languageCode = story.languageCode,
                             languageLevel = story.languageLevel,
                             dialog = item,
+                            // If AI messes up the voice assignments, fall back to default voice
+                            voiceId = story.voiceAssignments[item.speaker] ?: Constants.DEFAULT_VOICE_ID,
                         )
 
-                        audioManager.playAndWait(audioRequest)
+                        audioManager.playAndWait(voiceRequest)
                     }
                     is Enter -> {
                         visibleCharacters.add(item.id)
@@ -85,14 +87,16 @@ class StoryRunner(
         nextDialogs.forEach { dialog ->
             scope.launch {
 
-                val audioRequest = AudioRequest(
+                val voiceRequest = VoiceRequest(
                     dialog = dialog,
                     languageCode = story.languageCode,
                     languageLevel = story.languageLevel,
+                    // If AI messes up the voice assignments, fall back to default voice
+                    voiceId = story.voiceAssignments[dialog.speaker] ?: Constants.DEFAULT_VOICE_ID,
                 )
 
                 try {
-                    audioManager.ensureAudioLoaded(audioRequest)
+                    audioManager.ensureAudioLoaded(voiceRequest)
                 }
                 catch (e: Exception) {
                     // TODO: display error message and show dialog without audio

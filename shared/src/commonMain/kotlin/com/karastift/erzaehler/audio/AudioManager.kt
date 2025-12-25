@@ -1,7 +1,7 @@
 package com.karastift.erzaehler.audio
 
 import com.karastift.erzaehler.domain.model.entities.AudioData
-import com.karastift.erzaehler.domain.model.requests.AudioRequest
+import com.karastift.erzaehler.domain.model.requests.VoiceRequest
 import com.karastift.erzaehler.domain.usecase.GenerateAudioUseCase
 
 class AudioManager(
@@ -10,7 +10,7 @@ class AudioManager(
     private val cache: AudioCache,
 ) {
 
-    suspend fun ensureAudioLoaded(request: AudioRequest) {
+    suspend fun ensureAudioLoaded(request: VoiceRequest) {
         val key = cacheKey(request)
 
         if (cache.get(key) == null) {
@@ -19,7 +19,7 @@ class AudioManager(
         }
     }
 
-    suspend fun playAndWait(request: AudioRequest) {
+    suspend fun playAndWait(request: VoiceRequest) {
         val audio = getOrLoad(request)
         audioPlayer.play(audio)
     }
@@ -28,14 +28,14 @@ class AudioManager(
         audioPlayer.stop()
     }
 
-    private suspend fun getOrLoad(request: AudioRequest): AudioData {
+    private suspend fun getOrLoad(request: VoiceRequest): AudioData {
         val key = cacheKey(request)
 
         return cache.get(key)
             ?: generateAudio(request).also { cache.put(key, it) }
     }
 
-    private fun cacheKey(audioRequest: AudioRequest): String {
-        return "${audioRequest.languageCode}_${audioRequest.languageLevel}_${audioRequest.dialog.text.hashCode()}"
+    private fun cacheKey(voiceRequest: VoiceRequest): String {
+        return "${voiceRequest.languageCode}_${voiceRequest.languageLevel}_${voiceRequest.dialog.text.hashCode()}"
     }
 }

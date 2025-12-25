@@ -6,8 +6,9 @@ import com.karastift.erzaehler.domain.model.enums.LanguageLevel
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AudioRequest(
+data class VoiceRequest(
     val languageCode: LanguageCode,
     val languageLevel: LanguageLevel,
-    val dialog: Dialog
+    val dialog: Dialog,
+    val voiceId: String,
 )

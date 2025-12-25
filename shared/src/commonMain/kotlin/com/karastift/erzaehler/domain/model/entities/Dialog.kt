@@ -1,6 +1,7 @@
 package com.karastift.erzaehler.domain.model.entities
 
 import com.karastift.erzaehler.domain.model.enums.CharacterId
+import com.karastift.erzaehler.domain.model.enums.Emotion
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,7 +9,8 @@ import kotlinx.serialization.Serializable
 @SerialName("dialog")
 data class Dialog(
     val speaker: CharacterId,
-    val text: String
+    val text: String,
+    val emotion: Emotion,
 ) : ScriptItem()
 
 

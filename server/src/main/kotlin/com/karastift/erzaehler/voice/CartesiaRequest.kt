@@ -12,5 +12,5 @@ data class CartesiaRequest(
     val generation_config: GenerationConfig,
     val save: Boolean = false,
     val pronunciation_dict_id: String? = null,
-    val speed: String = "normal"
+//    val speed: String = "normal" // is deprecated
 )

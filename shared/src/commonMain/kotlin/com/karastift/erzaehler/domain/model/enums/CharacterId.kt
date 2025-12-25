@@ -1,41 +1,62 @@
 package com.karastift.erzaehler.domain.model.enums
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
-@Serializable
-enum class CharacterId(val id: String) {
-    BLONDE_KID_GIRL("blonde_kid_girl"),
-    BLONDE_MAN("blonde_man"),
-    BLONDE_WOMAN("blonde_woman"),
-    BLUE_HAIRED_KID_GIRL("blue_haired_kid_girl"),
-    BLUE_HAIRED_WOMAN("blue_haired_woman"),
-    BRIDE("bride"),
-    BUSINESSMAN("businessman"),
+@Serializable(with = CharacterIdSerializer::class)
+enum class CharacterId {
+    BLONDE_KID_GIRL,
+    BLONDE_MAN,
+    BLONDE_WOMAN,
+    BLUE_HAIRED_KID_GIRL,
+    BLUE_HAIRED_WOMAN,
+    BRIDE,
+    BUSINESSMAN,
 
-    CHEF("chef"),
-    DRACULA("dracula"),
-    FARMER("farmer"),
-    FIREFIGHTER("firefighter"),
-    GOBLIN_KID("goblin_kid"),
-    GOBLIN_MAN("goblin_man"),
-    GOBLIN_WOMAN("goblin_woman"),
+    CHEF,
+    DRACULA,
+    FARMER,
+    FIREFIGHTER,
+    GOBLIN_KID,
+    GOBLIN_MAN,
+    GOBLIN_WOMAN,
 
-    JOKER("joker"),
-    KNIGHT("knight"),
-    KNIGHT_KID("knight_kid"),
-    NINJA("ninja"),
-    NUN("nun"),
+    JOKER,
+    KNIGHT,
+    KNIGHT_KID,
+    NINJA,
+    NUN,
 
-    OLD_MAN("old_man"),
-    OLD_WOMAN("old_woman"),
-    POLICEMAN("policeman"),
-    PUNK_KID_BOY("punk_kid_boy"),
-    PUNK_WOMAN("punk_woman"),
+    OLD_MAN,
+    OLD_WOMAN,
+    POLICEMAN,
+    PUNK_KID_BOY,
+    PUNK_WOMAN,
 
-    SOLDIER("soldier"),
-    VIKING_KID_BOY("viking_kid_boy"),
-    VIKING_MAN("viking_man"),
-    VIKING_WOMAN("viking_woman");
+    SOLDIER,
+    VIKING_KID_BOY,
+    VIKING_MAN,
+    VIKING_WOMAN
+}
 
-    override fun toString(): String = id
+
+object CharacterIdSerializer : KSerializer<CharacterId> {
+
+    override val descriptor =
+        PrimitiveSerialDescriptor("CharacterId", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: CharacterId) {
+        encoder.encodeString(value.name.lowercase())
+    }
+
+    override fun deserialize(decoder: Decoder): CharacterId {
+        val raw = decoder.decodeString()
+        return CharacterId.entries.firstOrNull {
+            it.name.equals(raw, ignoreCase = true)
+        } ?: error("Unknown CharacterId: $raw")
+    }
 }

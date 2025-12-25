@@ -77,8 +77,8 @@ class StoryViewModel(
 
             try {
                 val response = generateTopic(
-                    languageCode = LanguageCode.EN,
-                    languageLevel = LanguageLevel.ELEMENTARY,
+                    languageCode = LanguageCode.KO,
+                    languageLevel = LanguageLevel.PROFICIENT,
                     suggestion = suggestion
                 )
 
@@ -102,8 +102,8 @@ class StoryViewModel(
 
             try {
                 val response = generateStory(
-                    languageCode = LanguageCode.EN,
-                    languageLevel = LanguageLevel.ELEMENTARY,
+                    languageCode = LanguageCode.KO,
+                    languageLevel = LanguageLevel.PROFICIENT,
                     topic = uiState.value.topic
                 )
 

@@ -1,6 +1,12 @@
 TODO:
 - i might need to look for different sprites or make my own because im not allowed to push these to github
 
+FUTURE:
+- different modes
+    - memes
+    - einbürgerungstest
+    - slang / youth words
+
 
 
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).

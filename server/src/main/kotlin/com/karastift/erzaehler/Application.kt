@@ -19,6 +19,9 @@ fun main() {
         .start(wait = true)
 }
 
+
+// TODO: ensure a number generated audio before story start in ui to have smooth story experience
+
 fun Application.module() {
 
     install(Koog) {
@@ -36,8 +39,12 @@ fun Application.module() {
     }
 
     val httpClient = HttpClient(CIO) {
+        // ContentNegotiation when server makes requests
         install(io.ktor.client.plugins.contentnegotiation.ContentNegotiation) {
-            json()
+            json(Json {
+                ignoreUnknownKeys = true // to not crash if cartesia api includes more fields
+                encodeDefaults = true // need defaults for example from OutputFormat
+            })
         }
     }
 
@@ -56,5 +63,6 @@ fun Application.module() {
         generateTopic()
         generateStory()
         generateVoice()
+        // debugListVoices()
     }
 }
