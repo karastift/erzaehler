@@ -33,18 +33,6 @@ class CartesiaVoiceProvider(
             generation_config = generationConfig,
         )
 
-        // TODO: Remove log
-
-        val json = Json {
-            ignoreUnknownKeys = true // to not crash if cartesia api includes more fields
-            encodeDefaults = true // need defaults for example from OutputFormat
-            prettyPrint = true
-        }
-
-        println(json.encodeToString(body))
-
-        // return ByteArray(0)
-
         return httpClient.post("https://api.cartesia.ai/tts/bytes") {
             header("Authorization", "Bearer $token")
             header("Cartesia-Version", cartesiaVersion)

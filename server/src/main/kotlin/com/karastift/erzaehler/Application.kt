@@ -21,6 +21,7 @@ fun main() {
 
 
 // TODO: ensure a number generated audio before story start in ui to have smooth story experience
+// TODO: questions for story
 
 fun Application.module() {
 

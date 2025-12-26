@@ -3,7 +3,7 @@ package com.karastift.erzaehler.inference
 import ai.koog.prompt.executor.clients.google.GoogleModels
 
 
-val ErzaehlerStandardModel = GoogleModels.Gemini2_5Flash
+val ErzaehlerStandardModel = GoogleModels.Gemini2_5Pro
 
 //val ErzaehlerStandardModel = CustomModels.TestModel
 //

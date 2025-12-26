@@ -37,7 +37,7 @@ Voice Assignments: For each selected CharacterId, choose a suitable voice ID fro
 Available Voices:
 $availableVoices
 
-Emotions: For each dialog you can choose an emotion (EXCLUSIVELY choose out of these):
+Emotions: For each dialog you can choose an emotion (EXCLUSIVELY choose out of these. MAKE SURE TO NOT INCLUDE ANY OTHER EMOTION):
 ${Emotion.entries.joinToString(", ") { it.name.lowercase() }}
 
 Generate the JSON now based on the inputs.
