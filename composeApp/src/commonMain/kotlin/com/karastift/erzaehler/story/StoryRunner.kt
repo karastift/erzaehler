@@ -50,7 +50,6 @@ class StoryRunner(
             while (!isFinished()) {
                 when (val item = story.script[index]) {
                     is Dialog -> {
-                        currentDialog = item
 
                         val voiceRequest = VoiceRequest(
                             languageCode = story.languageCode,
@@ -60,7 +59,10 @@ class StoryRunner(
                             voiceId = story.voiceAssignments[item.speaker] ?: Constants.DEFAULT_VOICE_ID,
                         )
 
+                        currentDialog = item
+
                         audioManager.playAndWait(voiceRequest)
+
                     }
                     is Enter -> {
                         visibleCharacters.add(item.id)
