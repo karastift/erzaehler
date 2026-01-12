@@ -1,95 +1,94 @@
-TODO:
-- i might need to look for different sprites or make my own because im not allowed to push these to github
-- consider switching to vibe voice (self hosting is probably the best option atm)
-  - after contest submission to not break app before (requires many logic changes)
-  - https://huggingface.co/microsoft/VibeVoice-1.5B
-  - speech to text needed: generate timestamps for subtitles (switch scenes/characters according to these)
+# erzaehler — AI‑assisted visual novel for language practice
 
-FUTURE:
-- different modes
-    - memes
-    - einbürgerungstest
-    - slang / youth words
+erzaehler is a small visual‑novel generator to help you practice a language. Provide a topic (or let the app suggest one), choose a language and level, and watch a short scene play out with generated voiceover. Each story is created on the fly, so every run is a little different.
 
+Built with Kotlin Multiplatform and Compose Multiplatform, it runs on Android and iOS with a small Ktor backend that manages story generation and text‑to‑speech.
 
+![Logo Platzhalter](Placeholder)
 
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
+> Unmute the videos.
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-      folder is the appropriate location.
+![Video Platzhalter](Placeholder)
+![Video2 Platzhalter](Placeholder)
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Setup
 
-### Build and Run Android Application
+The project has three modules:
+- composeApp: Compose Multiplatform UI and DI (Koin); platform bindings for audio
+ - shared: domain models, use cases, and repositories
+- server: Ktor backend exposing `/topic`, `/story`, `/voice`; including a small wrapper for the Cartesia API
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
+You’ll run the server once, then start any client target you want.
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+### Prerequisites
 
-### Build and Run Desktop (JVM) Application
+- macOS (required for iOS; optional for Android)
+- Android Studio and Xcode
+- JDK 11+ (project targets Java 11)
+- Gradle (wrapper included: `./gradlew`)
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
+Helpful references:
+- [Kotlin Multiplatform setup](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-create-first-app)
+- [Xcode](https://developer.apple.com/xcode/)
+- [Android Studio](https://developer.android.com/studio)
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+### Backend setup (API keys)
 
-### Build and Run Web Application
+The server uses:
+- Google Gemini for topic/story generation
+- Cartesia for text‑to‑speech
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
+Create API keys and export them as environment variables before launching the server:
 
-- for the Wasm target (faster, modern browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-- for the JS target (slower, supports older browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:jsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-      ```
+```bash
+export GOOGLE_API_KEY=YOUR_GEMINI_KEY
+export CARTESIA_API_KEY=YOUR_CARTESIA_KEY
+```
 
-### Build and Run iOS Application
+Then run the backend:
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+> Or open the project and use the `Run ApplicationKt` button in your IDE.
+```bash
+./gradlew :server:run
+```
 
----
+The server starts on http://127.0.0.1:8080.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+Notes:
+- iOS simulator and Desktop use 127.0.0.1 directly.
+- Android emulator uses a separate loopback. Easiest fix: reverse port 8080 so 127.0.0.1 works in the app:
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack
-channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+```bash
+adb reverse tcp/8080 tcp/8080
+```
+
+If you cannot use `adb reverse`, change the client host in `shared/src/commonMain/kotlin/com/karastift/erzaehler/Constants.kt` (`SERVER_HOST`) to `10.0.2.2` for the Android emulator.
+
+### Mobile app setup
+
+I recommend to follow the [official documentation](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html#run-your-application) for running the actual mobile app either on Android or iOS Simulator.
+
+## App flow
+
+1) Choose Language and Level which affects story and speech speed.
+2) Enter a topic or tap the sparkle icon to generate one.
+3) Tap the submit button and listen!
+
+## Built With
+
+1. [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) — shared domain + networking across targets
+2. [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) — declarative UI for Android, iOS, Desktop, Web
+3. [Ktor](https://ktor.io/) — backend server and HTTP client
+4. [Koin](https://insert-koin.io/) — lightweight dependency injection
+5. [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) — JSON serialization
+6. [Koog (LLM)](https://docs.koog.ai/) — prompt execution for topic/story generation
+7. [Cartesia TTS](https://cartesia.ai/sonic) — voice generation for dialogue
+
+## Troubleshooting
+
+- 401/403 from backend: verify `GOOGLE_API_KEY` and `CARTESIA_API_KEY` are set in your shell.
+- Android cannot reach backend: run `adb reverse tcp/8080 tcp/8080` (or change `SERVER_HOST` to `10.0.2.2`).
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
