@@ -1,15 +1,27 @@
-# erzaehler — AI‑assisted visual novel for language practice
+<p align="center">
+  <img
+    alt="erzaehler-logo"
+    src="https://github.com/user-attachments/assets/d778b280-5e7d-4d7c-9f2f-19756444d8e9"
+    width="800"
+  />
+</p>
+
+
 
 erzaehler is a small visual‑novel generator to help you practice a language. Provide a topic (or let the app suggest one), choose a language and level, and watch a short scene play out with generated voiceover. Each story is created on the fly, so every run is a little different.
 
 Built with Kotlin Multiplatform and Compose Multiplatform, it runs on Android and iOS with a small Ktor backend that manages story generation and text‑to‑speech.
 
-![Logo Platzhalter](Placeholder)
+<br>
 
 > Unmute the videos.
 
-![Video Platzhalter](Placeholder)
-![Video2 Platzhalter](Placeholder)
+https://github.com/user-attachments/assets/9cbfa62c-9f6d-4605-8391-5cd34912e871
+
+https://github.com/user-attachments/assets/9a791819-1590-4557-994b-44c299bf1001
+
+[Gameplay video 1 (with sound)](https://github.com/user-attachments/assets/9cbfa62c-9f6d-4605-8391-5cd34912e871)  
+[Gameplay video 2 (with sound)](https://github.com/user-attachments/assets/9a791819-1590-4557-994b-44c299bf1001)
 
 ## Setup
 
