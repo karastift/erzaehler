@@ -84,6 +84,25 @@ I recommend to follow the [official documentation](https://kotlinlang.org/docs/m
 6. [Koog (LLM)](https://docs.koog.ai/) — prompt execution for topic/story generation
 7. [Cartesia TTS](https://cartesia.ai/sonic) — voice generation for dialogue
 
+## Character assets (license & setup)
+
+This project uses character sprites from: https://pixelserial.itch.io/rpg-top-down-character-asset-pack
+
+License summary (author’s terms):
+- You can: use in personal/commercial projects; modify and include in games (free or paid).
+- You can’t: resell or redistribute the assets (even if modified).
+
+Because redistribution is forbidden, the sprites are not included in this repository. To use them locally:
+
+1) Download the asset pack and extract it.
+2) Slice the sprites into frames using the helper script [slice-assets.py](slice-assets.py):
+3) Copy the generated frames into Compose resources so the app can load them:
+
+```bash
+mkdir -p composeApp/src/commonMain/composeResources/drawable
+cp presliced_flattened/*.png composeApp/src/commonMain/composeResources/drawable/
+```
+
 ## Troubleshooting
 
 - 401/403 from backend: verify `GOOGLE_API_KEY` and `CARTESIA_API_KEY` are set in your shell.
