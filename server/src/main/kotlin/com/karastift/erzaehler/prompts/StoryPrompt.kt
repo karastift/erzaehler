@@ -26,7 +26,7 @@ Guidelines:
 
 Story Style: With a beginning (characters enter), middle (dialog around the topic), and end (resolution, characters exit).
 Characters: Select 2-4 from the CharacterId enum (e.g., blonde_kid_girl, chef, dracula). Assign fitting names. Introduce via 'enter', have them speak in 'dialog', remove via 'exit'.
-Dialog: All in {target_language}, natural and level-appropriate. No narration—only character speech. Use the characters id instead of the name as the speaker field.
+Dialog: All in {target_language}, natural and level-appropriate. No narration—only character speech. Use the characters id instead of the name as the speaker field. !! Keep the separat dialogs short even if the language proficiency is high !!
 Comprehension: Do not include questions here; app handles separately if needed.
 
 Available CharacterIds: Only choose characters that are listed here (EXCLUSIVELY choose out of these):
