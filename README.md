@@ -78,6 +78,20 @@ If you cannot use `adb reverse`, change the client host in `shared/src/commonMai
 
 I recommend to follow the [official documentation](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html#run-your-application) for running the actual mobile app either on Android or iOS Simulator.
 
+### Character assets (license & setup)
+
+This project uses character sprites from: https://pixelserial.itch.io/rpg-top-down-character-asset-pack
+
+License summary (author’s terms):
+- You can: use in personal/commercial projects; modify and include in games (free or paid).
+- You can’t: resell or redistribute the assets (even if modified).
+
+Because redistribution is forbidden, the sprites are not included in this repository. To use them locally:
+
+1) Download the asset pack and extract it.
+2) Slice the sprites into frames using the helper script [slice-assets.py](slice-assets.py):
+3) Copy the generated frames into Compose resources so the app can load them:
+
 ## App flow
 
 1) Choose Language and Level which affects story and speech speed.
@@ -93,20 +107,6 @@ I recommend to follow the [official documentation](https://kotlinlang.org/docs/m
 5. [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) — JSON serialization
 6. [Koog (LLM)](https://docs.koog.ai/) — prompt execution for topic/story generation
 7. [Cartesia TTS](https://cartesia.ai/sonic) — voice generation for dialogue
-
-## Character assets (license & setup)
-
-This project uses character sprites from: https://pixelserial.itch.io/rpg-top-down-character-asset-pack
-
-License summary (author’s terms):
-- You can: use in personal/commercial projects; modify and include in games (free or paid).
-- You can’t: resell or redistribute the assets (even if modified).
-
-Because redistribution is forbidden, the sprites are not included in this repository. To use them locally:
-
-1) Download the asset pack and extract it.
-2) Slice the sprites into frames using the helper script [slice-assets.py](slice-assets.py):
-3) Copy the generated frames into Compose resources so the app can load them:
 
 ```bash
 mkdir -p composeApp/src/commonMain/composeResources/drawable
