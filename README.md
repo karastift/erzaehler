@@ -16,12 +16,10 @@ Built with Kotlin Multiplatform and Compose Multiplatform, it runs on Android an
 
 > Unmute the videos.
 
-https://github.com/user-attachments/assets/9cbfa62c-9f6d-4605-8391-5cd34912e871
+https://github.com/user-attachments/assets/0b66aca8-ad54-4aff-b8b6-ba1f5dd6c494
 
-https://github.com/user-attachments/assets/9a791819-1590-4557-994b-44c299bf1001
+https://github.com/user-attachments/assets/9b0c3339-456d-4896-866d-ef6f90e9b0d1
 
-[Gameplay video 1 (with sound)](https://github.com/user-attachments/assets/9cbfa62c-9f6d-4605-8391-5cd34912e871)  
-[Gameplay video 2 (with sound)](https://github.com/user-attachments/assets/9a791819-1590-4557-994b-44c299bf1001)
 
 ## Setup
 
