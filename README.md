@@ -6,7 +6,7 @@
   />
 </p>
 
-
+> This project was created for the [Kotlin Multiplatform Contest](https://kotlinconf.com/contest/).
 
 erzaehler is a small visual‑novel generator to help you practice a language. Provide a topic (or let the app suggest one), choose a language and level, and watch a short scene play out with generated voiceover. Each story is created on the fly, so every run is a little different.
 
